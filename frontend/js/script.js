@@ -1,41 +1,225 @@
-// Home page js
+"use strict";
 
-document.addEventListener('DOMContentLoaded', () => {
-  // CATEGORY buttons
-  // CATEGORY filter logic
-  const categoryButtons = document.querySelectorAll('.category-btn');
-  const productCards = document.querySelectorAll('.pro');
-  const categoryTitle = document.querySelector('.product1-title');
+// Store data
+const storeData = [
+  {
+    id: "pro1",
+    category: "ELECTRONIC",
+    title: "ESC",
+    price: "$29.99",
+    img: "assets/products/p1.jpg",
+  },
+  {
+    id: "pro2",
+    category: "CAR MODEL",
+    title: "MN",
+    price: "$29.99",
+    img: "assets/products/p2.jpg",
+  },
+  {
+    id: "pro3",
+    category: "CAR MODEL",
+    title: "WPL",
+    price: "$29.99",
+    img: "assets/products/p3.jpg",
+  },
+  {
+    id: "pro4",
+    category: "CAR MODEL",
+    title: "WLTOYS",
+    price: "$29.99",
+    img: "assets/products/p4.jpg",
+  },
+  {
+    id: "pro5",
+    category: "CAR MODEL",
+    title: "FMS",
+    price: "$29.99",
+    img: "assets/products/p5.jpg",
+  },
+  {
+    id: "pro6",
+    category: "CAR MODEL",
+    title: "HUINA",
+    price: "$29.99",
+    img: "assets/products/p6.jpg",
+  },
+  {
+    id: "pro7",
+    category: "CAR MODEL",
+    title: "DOUBLE E",
+    price: "$29.99",
+    img: "assets/products/p7.jpg",
+  },
+  {
+    id: "pro8",
+    category: "CAR MODEL",
+    title: "SCY",
+    price: "$29.99",
+    img: "assets/products/p8.jpg",
+  },
+  {
+    id: "pro9",
+    category: "REMOTE CONTROL",
+    title: "MICROZONE",
+    price: "$29.99",
+    img: "assets/products/p9.jpg",
+  },
+  {
+    id: "pro10",
+    category: "REMOTE CONTROL",
+    title: "HOT-RC",
+    price: "$29.99",
+    img: "assets/products/p10.jpg",
+  },
+  {
+    id: "pro11",
+    category: "REMOTE CONTROL",
+    title: "SURPASS HOBBY",
+    price: "$29.99",
+    img: "assets/products/p11.jpg",
+  },
+  {
+    id: "pro12",
+    category: "REMOTE CONTROL",
+    title: "MN",
+    price: "$29.99",
+    img: "assets/products/p12.jpg",
+  },
+  {
+    id: "pro13",
+    category: "REMOTE CONTROL",
+    title: "FLY SKY",
+    price: "$29.99",
+    img: "assets/products/p13.jpg",
+  },  
+  {
+    id: "pro14",
+    category: "REMOTE CONTROL",
+    title: "DC MOTOR",
+    price: "$29.99",
+    img: "assets/products/p14.jpg",
+  },
+  {
+    id: "pro15",
+    category: "REMOTE CONTROL",
+    title: "RC PART",
+    price: "$29.99",
+    img: "assets/products/p15.jpg",
+  },
+  {
+    id: "pro16",
+    category: "REMOTE CONTROL",
+    title: "BATTERY",
+    price: "$29.99",
+    img: "assets/products/p16.jpg",
+  },
+  {
+    id: "pro17",
+    category: "REMOTE CONTROL",
+    title: "BATTERY",
+    price: "$29.99",
+    img: "assets/products/p17.jpg",
+  }, 
+    {
+    id: "pro18",
+    category: "REMOTE CONTROL",
+    title: "BATTERY",
+    price: "$29.99",
+    img: "assets/products/p18.jpg",
+  },
+  {
+    id: "pro19",
+    category: "REMOTE CONTROL",
+    title: "BATTERY",
+    price: "$29.99",
+    img: "assets/products/p19.jpg",
+  }, 
+   {
+    id: "pro20",
+    category: "REMOTE CONTROL",
+    title: "BATTERY",
+    price: "$29.99",
+    img: "assets/products/p20.jpg",
+  }, 
+]
 
-  categoryButtons.forEach(btn => {
-    btn.addEventListener('click', () => {
-      // Remove active from all, set active on clicked
-      categoryButtons.forEach(b => b.classList.remove('active'));
-      btn.classList.add('active');
+// When DOM loads, display all dynamic data
+window.addEventListener('DOMContentLoaded', () => {
 
-      // Update title
-      if (categoryTitle) categoryTitle.textContent = btn.textContent.trim();
+  // display all store data in HTML
+  displayStoreData(storeData);
 
-      // Get selected category
-      const selected = btn.dataset.category;
-
-      // Show/hide products
-      productCards.forEach(card => {
-        const span = card.querySelector('.des span');
-        const cardCategory = span ? span.textContent.trim().toLowerCase().replace(/\s+/g, '-') : '';
-        if (!selected || selected === '' || cardCategory === selected) {
-          card.style.display = '';
-        } else {
-          card.style.display = 'none';
-        }
+  // search button click handler
+  const inputEl = document.querySelector('.form_control');
+  const searchBtn = document.querySelector('.btn_search');
+  searchBtn.addEventListener('click', () => {
+    let searchValue = inputEl.value;
+    if(searchValue !== ""){
+      let searchCategory = storeData.filter(function(data){
+        if(data.category.includes(searchValue)){
+            return data;
+          } else if(data.title.includes(searchValue)){
+            return data;
+          } 
       });
-    });
+        if (searchCategory){
+          displayStoreData(searchCategory);
+        }
+        inputEl.value = "";
+    } else {
+      alert("Please Search The Catgory or Title! ");
+    }
   });
 
+  // getting unique categories
+  const categories = storeData.reduce(
+    function(values, item){
+      if(!values.includes(item.category)){
+        values.push(item.category);
+      }
+    return values;
+  }, 
+  ['ALL'],
+  );
+  
+  // dynamic category buttons
+  const categoryContainer = document.querySelector('#category .category-inner');
+  const categoryBtns = categories.map(function(category){
+    return `<button class="category-btn ${category === 'ALL' ? 'active' : ''}" 
+            data-id="${category}"> ${category} </button>`
+  }).join('');
+  categoryContainer.innerHTML = categoryBtns;
+
+  // category button click handler  
+  const buttonEl = document.querySelectorAll('#category button');
+  const titleEl = document.querySelector('.product-title');
+  buttonEl.forEach(button => {
+    button.addEventListener('click', (e) => {
+      e.preventDefault();
+      
+      // Remove active class from all buttons
+      buttonEl.forEach(btn => btn.classList.remove('active'));
+      
+      // Add active class to clicked button
+      button.classList.add('active');
+      
+      const category = e.target.dataset.id;
+      const storeCategory = storeData.filter(data => data.category === category);
+
+      if(category === 'ALL'){
+        displayStoreData(storeData);
+        titleEl.textContent = 'All Products';
+      } else {
+        displayStoreData(storeCategory);
+        titleEl.textContent = category;
+      }
+    });
+  });
+  
+  // cart functionality
   const STORAGE_KEY = 'vb_cart'
   const headerCountEl = document.querySelector('a.cart-btn .cart-count')
-
-  // CART functionality
   const readCart = () => JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]')
   const saveCart = (cart) => localStorage.setItem(STORAGE_KEY, JSON.stringify(cart))
 
@@ -76,6 +260,25 @@ document.addEventListener('DOMContentLoaded', () => {
     })
   })
 
-  // init
-  updateHeaderCount()
-})
+  updateHeaderCount();
+});
+
+// Display function that generates HTML
+function displayStoreData(hardware){
+  const productContainer = document.querySelector('.product-inner');
+  if (!productContainer) return; // guard
+
+  let displayData = hardware.map(function(items){
+    return `<div class="pro" id="${items.id}">
+              <img src="${items.img}" alt="Product 1" />
+              <div class="des">
+                <span> ${items.category} </span>
+                <h5> ${items.title} </h5>
+                <h4> ${items.price} </h4>
+              </div>
+            <a href="#"><i class="fa-solid fa-cart-shopping cart"></i></a>
+          </div>`;
+  });
+  displayData = displayData.join('');
+  productContainer.innerHTML = displayData;
+};

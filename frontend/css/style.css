@@ -135,6 +135,30 @@
   backface-visibility: hidden;
 }
 
+.search form {
+  font-size: 20px;
+  color: #1a1a1a;
+  border: none;
+} 
+
+.search .form_control {
+  border: none;
+  outline: none;
+  padding: 4px 4px;
+  font-size: 16px;
+  background: #f5f5f5;
+  border-radius: 4px 0 0 4px;
+}
+
+.search .btn_search {
+  border: none;
+  background: #f5f5f5;
+  font-size: 16px;
+  padding: 4px 12px;
+  cursor: pointer;
+  border-radius: 0 4px 4px 0;
+}
+
 /* cart button is an <a> (not always inside <li>) — make it a positioned inline-flex element */
 #navbar a.cart-btn {
   position: relative;
@@ -147,13 +171,13 @@
   will-change: transform;
 }
 
-#navbar .cart-btn img {
+.cart-btn img {
   width: 28px;
   height: 28px;
 }
 
 /* compact circular badge, centered over top-right of the parent */
-#navbar .cart-count {
+.cart-count {
   position: absolute;
   top: 0;
   right: 0;
@@ -247,7 +271,6 @@
   overflow-x: auto;
 }
 
-/* optional: make each button grow equally */
 #category .category-btn {
   flex: 1 1 auto;
   height: 36px;
@@ -266,7 +289,7 @@
   cursor: pointer;
   outline: none;
   transition: background-color 0.18s, color 0.18s, border-color 0.18s,
-    transform 0.08s;
+  transform 0.08s;
   white-space: nowrap;
 }
 
@@ -279,16 +302,16 @@
 }
 
 /* PRODUCT */
-#product1 {
+#product {
   display: flex;
   width: 100%;
 }
 
-#product1 .product1-title {
+#product .product-title {
   margin-bottom: 12px;
 }
 
-#product1 .product1-inner {
+#product .product-inner {
   display: grid;
   grid-template-columns: repeat(
     auto-fill,
@@ -298,7 +321,7 @@
   align-items: start;
 }
 
-#product1 .pro {
+#product .pro {
   background-color: white;
   padding: 12px;
   border: 1px solid rgba(0, 0, 0, 0.08);
@@ -313,7 +336,7 @@
   height: 360px;
 }
 
-#product1 img {
+#product img {
   width: 100%;
   height: 70%;
   object-fit: cover;
@@ -322,44 +345,44 @@
   transform-origin: center center;
 }
 
-#product1 img:hover {
+#product img:hover {
   transform: scale(1.05);
 }
 
-#product1 .pro .des {
+#product .pro .des {
   text-align: start;
   padding: 0;
 }
 
-#product1 .pro .des span {
+#product .pro .des span {
   color: #606063;
   font-size: 12px;
 }
 
-#product1 .pro .des h5 {
+#product .pro .des h5 {
   padding-top: 7px;
   color: #1a1a1a;
   font-size: 14px;
 }
 
-#product1 .pro .des i {
+#product .pro .des i {
   font-size: 12px;
   color: rgb(228, 170, 24);
 }
 
-#product1 .pro .des h4 {
+#product .pro .des h4 {
   padding-top: 12px;
   font-size: 16px;
   font-weight: 700;
   color: var(--primary);
 }
 
-#product1 .pro .des span {
+#product .pro .des span {
   color: #606063;
   font-size: 12px;
 }
 
-#product1 .pro .cart {
+#product .pro .cart {
   width: 40px;
   height: 40px;
   line-height: 40px;
@@ -374,7 +397,7 @@
   right: 10px;
 }
 
-#product1 .cart:hover {
+#product .cart:hover {
   background-color: var(--primary);
   color: white;
 }
@@ -535,6 +558,93 @@
 }
 
 #cart .col2 button {
+  background-color: var(--primary);
+  color: #fff;
+  padding: 12px 20px;
+}
+
+/* Sproduct Page */
+#sproduct {
+  overflow: auto;
+  margin-top: 5vh;
+}
+
+#sproduct .sproduct-inner {
+  display: flex;
+  align-items: start; 
+}
+
+#sproduct .col1 {
+  background-color: white;
+  width: 55%;
+  height: 90vh;
+  border-radius: 8px; 
+  padding: 8px;
+}
+
+#sproduct .col1 img{
+  /* width: 100px; */
+  /* height: 100px; */
+  object-fit: cover;
+  border-radius: 8px;
+}
+
+#sproduct .sproduct-row{
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  gap: 32px;
+}
+
+#sproduct .cart-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  width: 100%;
+}
+
+#sproduct .cart-item-details {
+  display: flex;
+  flex-direction: column;
+  flex: 1; /* take up remaining space */
+  gap: 4px;
+}
+
+#sproduct .cart-item-quantity {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 6px;
+}
+
+#sproduct .qty-btn:hover {
+  background: rgba(0, 0, 0, 0.1);
+}
+
+#sproduct .cart-qty-number {
+  min-width: 24px;
+  text-align: center;
+  font-size: 18px;
+  font-weight: 500;
+}
+
+#sproduct .empty-cart-message {
+  text-align: center;
+  color: rgba(0, 0, 0, 0.5);
+  font-size: 18px;
+  margin: 24px 0;
+}
+
+#sproduct .col2 {
+  display: flex;
+  flex-direction: column;
+  width: 40%;
+  padding: 24px;
+  gap: 24px;
+}
+
+#sproduct .col2 button {
   background-color: var(--primary);
   color: #fff;
   padding: 12px 20px;
